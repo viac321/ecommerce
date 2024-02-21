@@ -1,5 +1,6 @@
 const catchError = require('../utils/catchError');
 const user = require('../models/User');
+const bcrypt = require('bcrypt');
 
 const getAll = catchError(async(req, res) => {
     const results = await user.findAll();
@@ -35,12 +36,27 @@ const update = catchError(async(req, res) => {
 
 const login = catchError(async(req, res) => {
     const { email, password } = req.body
+    const user = await User.findOne({ where: { email } })
+    if (!user) return res.status(401).json({ message: 'user not found' })
+    
+    bcrypt.compare(password, user.password) 
+    if(!isValid) return res.status(401).json({ message: 'invalid credentials' })
+
+
+    //validation of credentials
+    const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
+        expiresIn: '24h'
+    })
+    return res.json({ user, token })
     
 })
+
+
 
 module.exports = {
     getAll,
     create,
     remove,
-    update
+    update,
+    login
 }
