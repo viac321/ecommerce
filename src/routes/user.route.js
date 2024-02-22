@@ -1,8 +1,9 @@
 const { getAll, create, remove, update, login } = require('../controllers/user.controllers');
-const routerUser = express.Router();
+const express = require('express');
 const verifyJwt = require('../utils/verifyJWT');
 
-const express = require('express');
+const routerUser = express.Router();
+
 
 routerUser.route('/')
     .get(verifyJwt, getAll)

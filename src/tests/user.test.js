@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../app');
 
+
 const URL_BASE = '/users'
 let TOKEN
 let userID
@@ -8,15 +9,15 @@ let userID
 const user = {
     firstName: 'test',
     lastName: 'test',
-    email: 'test',
-    password: 'test',
+    email: 'test@test.com',
+    password: 'test1234',
     phone: 'test'
 }
 
 beforeAll(async() => {
     const user = {
-        email: 'test',
-        password: 'test'
+        email: 'admin',
+        password: 'admin1234'
     }
     const res = await request(app)
     .post(`${URL_BASE}/login`)
@@ -25,7 +26,7 @@ beforeAll(async() => {
     TOKEN = res.body.token
 })
 
-test("'GET -> 'URL_BASE', should return status code 201, r ", async() => { 
+test("'GET -> 'URL_BASE', should return status code 200 (ok), r ", async() => { 
     const res = await request(app)
     .get(URL_BASE)
     .set('Authorization', `Bearer ${TOKEN}`)
@@ -58,16 +59,12 @@ test ("'PUT -> 'URL_BASE', should return status code 201, r ", async() => {
     expect(res.body.firstName).toEqual('test2')
 }) 
 
-test("POST -> 'URL_BASE/:id', should return status code 204, r ", async() => {
-    const res = await request(app)
-    .delete(`${URL_BASE}/${userID}`)
-    .set('Authorization', `Bearer ${TOKEN}`)
-})
 
-test("POST-> 'URL_BASE/login', should return status code 201, r ", async() => {
+
+test("POST-> 'URL_BASE/login', should return status code 200, r ", async() => {
     const userLogin = {
-        email: 'test',
-        password: 'test'
+        email: 'test@test.com',
+    password: 'test1234'
     }
     const res = await request(app)
     .post(`${URL_BASE}/login`)
@@ -76,6 +73,12 @@ test("POST-> 'URL_BASE/login', should return status code 201, r ", async() => {
 
     expect(res.statusCode).toBe(200)
     expect(res.body).toBeDefined()
-    expect(res.body.user.email).toBe(userLogin.email)})
-    expect(res.body.TOKEN).toBeDefined()
- 
+    expect(res.body.user.email).toBe(userLogin.email)
+    expect(res.body.token).toBeDefined()
+})
+    
+test("DELETE -> 'URL_BASE/:id', should return status code 204, r ", async() => {
+    const res = await request(app)
+    .delete(`${URL_BASE}/${userID}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
+})
