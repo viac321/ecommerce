@@ -2,14 +2,14 @@ const { getAll, create, remove } = require('../controllers/category.controllers'
 const express = require('express');
 const verifyJwt = require('../utils/verifyJWT');
 
-const Category = express.Router();
+const routerCategory = express.Router();
 
-Category.route('/')
+routerCategory.route('/')
     .get(getAll)
     .post(verifyJwt,create);
 
-Category.route('/:id')
+routerCategory.route('/:id')
     .delete(verifyJwt, remove)
    
 
-module.exports = Category;
+module.exports = routerCategory;
