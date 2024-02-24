@@ -62,16 +62,35 @@ test("GET -> 'URL_BASE' should return code 200, res.body should be defined and r
     const res = await request(app)
     .get(URL_BASE)
 
+    console.log(res.body)
+    
     expect(res.status).toBe(200)
     expect (res.body).toBeDefined()
     expect(res.body).toHaveLength(1)
+
     expect(res.body[0].category).toBeDefined()
     expect(res.body[0].category.id).toBe(category.id)
   
-    await category.destroy()
+    
 })
 
+test("GET -> 'URL_BASE/:productId', should return status code 200, res.body to be defined, res.body.title === product.title, res.body.category.id to be defined, and res.body.category.id === category.id", async() => {
+    const res = await request(app)
+    .get(`${URL_BASE}?category=${category.id}`)
 
+    console.log(res.body)
+
+    expect(res.status).toBe(200)
+    expect(res.body).toBeDefined()
+    expect(res.body).toHaveLength(1)
+    
+    expect(res.body[0].categoryId).toBeDefined()
+    expect(res.body[0].categoryId).toBe(category.id)
+
+    expect(res.body[0].category).toBeDefined()
+    expect(res.body[0].category.id).toBe(category.id)
+
+})
 
 test("GET -> 'URL_BASE/:productId' should return code 200 and res.body should be defined", async() => {
     const res =await request(app)
@@ -80,15 +99,30 @@ test("GET -> 'URL_BASE/:productId' should return code 200 and res.body should be
     expect(res.status).toBe(200)
     expect(res.body).toBeDefined()
     expect(res.body.title).toBe(product.title)
+
+    expect(res.body.category.id).toBeDefined()
+    expect(res.body.category.id).toBe(category.id)
+
 })
 
 test("PUT -> 'URL_BASE/:productId' should return code 200 and res.body should be defined", async() => {
     const res = await request(app)
     .put(`${URL_BASE}/${productId}`)
     .send({
-        title: 'tacos',
-        description: 'mexican food',
-        price: "100",
-        categoryId: category.id
+        title: 'electronics'
     })
+    .set('Authorization', `Bearer ${TOKEN}`)
+
+    expect(res.status).toBe(200)
+    expect(res.body).toBeDefined()
+    expect(res.body.title).toBe('electronics')
+})
+
+test(" DELETE -> 'URL_BASE/:productId' should return code 204 ", async() => {
+    const res = await request(app)
+    .delete(`${URL_BASE}/${productId}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
+
+    expect(res.status).toBe(204)
+    await category.destroy()
 })
