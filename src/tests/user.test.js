@@ -16,7 +16,7 @@ const user = {
 
 beforeAll(async() => {
     const user = {
-        email: 'admin',
+        email: 'admin@gmail.com',
         password: 'admin1234'
     }
     const res = await request(app)

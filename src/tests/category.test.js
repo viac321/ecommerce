@@ -12,7 +12,7 @@ category = {
 
 beforeAll(async() => {
     const user = {
-        email: 'admin',
+        email: 'admin@gmail.com',
         password: 'admin1234'
     }
 

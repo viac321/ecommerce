@@ -29,7 +29,6 @@ beforeAll( async() => {
     .send(user)
 
     TOKEN = res.body.token
-    console.log(TOKEN)
 
     // create category register primary instance
     category = await Category.create({
@@ -62,8 +61,6 @@ test("POST -> 'URL_BASE' should return code 201, res.body should be defined and 
 test("GET -> 'URL_BASE' should return code 200, res.body should be defined and res.body.length === 1", async() => {
     const res = await request(app)
     .get(URL_BASE)
-
-    console.log(res.body)
     
     expect(res.status).toBe(200)
     expect (res.body).toBeDefined()
@@ -78,8 +75,6 @@ test("GET -> 'URL_BASE' should return code 200, res.body should be defined and r
 test("GET -> 'URL_BASE/:productId', should return status code 200, res.body to be defined, res.body.title === product.title, res.body.category.id to be defined, and res.body.category.id === category.id", async() => {
     const res = await request(app)
     .get(`${URL_BASE}?category=${category.id}`)
-
-    console.log(res.body)
 
     expect(res.status).toBe(200)
     expect(res.body).toBeDefined()
