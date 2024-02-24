@@ -20,15 +20,16 @@ beforeAll( async() => {
 
     // login
     const user = {
-        email: 'admin',
+        email: 'admin@gmail.com',
         password: 'admin1234'
     }
 
-    const res = await await request(app) 
+    const res =  await request(app) 
     .post(`${URL_USERS}/login`)
     .send(user)
 
     TOKEN = res.body.token
+    console.log(TOKEN)
 
     // create category register primary instance
     category = await Category.create({

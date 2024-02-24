@@ -1,11 +1,13 @@
 const catchError = require('../utils/catchError');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-const { where } = require('sequelize');
+
 
 const getAll = catchError(async(req, res) => {
 
     const { category } = req.query
+
+    const where ={}
 
     if(category) where.categoryId = category
 

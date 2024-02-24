@@ -4,7 +4,7 @@ const userCreate = async () => {
     await User.create({
         firstName: 'admin',
         lastName: 'admin',
-        email: 'admin',
+        email: 'admin@gmail.com',
         password: 'admin1234',
         phone: '+212156'
     })

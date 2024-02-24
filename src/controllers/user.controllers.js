@@ -45,9 +45,11 @@ const login = catchError(async(req, res) => {
 
 
     //validation of credentials
-    const token = jwt.sign({ user }, process.env.TOKEN_SECRET, {
-        expiresIn: '1d'
-    })
+    const token = jwt.sign(
+        { user }, 
+        process.env.TOKEN_SECRET, 
+        {expiresIn: '1d' }
+    )
     return res.json({ user: user, token: token })
     
 })

@@ -2,18 +2,13 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/connection');
 
 const Cart = sequelize.define('cart', {
-    userId: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    producId: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    quantuty: {
+    
+    quantity: {
         type: DataTypes.STRING,
         allowNull: false
     }
+    //userId
+    //producId
 });
 
 module.exports = Cart;
