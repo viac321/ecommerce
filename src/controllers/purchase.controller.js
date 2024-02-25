@@ -1,9 +1,26 @@
 const catchError = require('../utils/catchError');
 const Purchase = require('../models/Purchase');
 const Cart = require('../models/Cart');
+const { where } = require('sequelize');
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Purchase.findAll();
+    const userId = req.user.id
+    const results = await Purchase.findAll(
+        { where: { userId },
+          include: [
+            {
+                model: Product,
+                attributes: { exclude: ["createdAt", "updatedAt"] },
+                include: {
+                    model: Category, 
+                    attributes: ["name"]
+                }
+            }
+          ]
+        }
+    );
     return res.json(results);
 });
 
