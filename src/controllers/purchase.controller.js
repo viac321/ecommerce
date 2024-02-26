@@ -1,7 +1,7 @@
 const catchError = require('../utils/catchError');
 const Purchase = require('../models/Purchase');
 const Cart = require('../models/Cart');
-//const { where } = require('sequelize');
+const { where } = require('sequelize');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
 
@@ -29,16 +29,18 @@ const create = catchError(async(req, res) => {
     
     const cart = await Cart.findAll({
         where: { userId },
-        raw: true,
-        attributes: [quantity, 'userId', 'productId']
-    });
+        raw: true, //returns json
+        attributes: ['quantity', 'userId', 'productId']
+    })
+    console.log(cart, userId)
+
     if(!cart) return res.sendStatus(404)
     const result = await Purchase.bulkCreate(cart)
     if (!result) return res.sendStatus(404)
 
     await Cart.destroy({ where: { userId } })
     
-    return res.status(201).json(result);
+    return res.status(201).json(result)
 });
 
 

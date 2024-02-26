@@ -5,7 +5,7 @@ const verifyJwt = require('../utils/verifyJWT');
 const routerPurchase = express.Router();
 
 routerPurchase.route('/')
-    .get(verifyJwt,getAll)
+    .get(getAll)
     .post(create);
 
 
