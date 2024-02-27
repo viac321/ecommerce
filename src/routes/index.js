@@ -1,19 +1,19 @@
 const express = require('express');
-const router = express.Router();
-const user = require('./user.route');
-const category = require('./category.route');
-const product = require('./product.route');
-const cart = require('./cart.route');
+const routerUser = require('./user.route')
+const routerCategory = require('./category.route');
+const routerProduct = require('./product.route');
+const routerCart = require('./cart.route');
 const verifyJWT = require('../utils/verifyJWT');
 const routerPurchase = require('./purchase.route');
-const routerProductImg = require('./productImg.route')
-// colocar las rutas aquí
-router.use("/users", user);
-router.use("/categories", category);
-router.use("/products", product)
-router.use("/purchases", verifyJWT, routerPurchase)
-router.use("/carts", verifyJWT,cart )
-router.use(" /product_images",routerProductImg)
+const routerProductImg = require('./productImg.router')
+const router = express.Router();
 
+
+router.use("/users", routerUser);
+router.use("/categories", routerCategory);
+router.use("/products", routerProduct)
+router.use("/purchases", verifyJWT, routerPurchase)
+router.use("/carts", verifyJWT,routerCart)
+router.use('/product_images', routerProductImg)
 
 module.exports = router;
