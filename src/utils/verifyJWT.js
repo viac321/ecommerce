@@ -8,7 +8,7 @@ const verifyJWT = (req, res, next) => {
 
 
   if (!authHeader?.startsWith('Bearer ')) return res.sendStatus(401);
-  const token = authHeader.split(' ')[1];
+  const token = authHeader.split(' ')[1]; //split convierte un array
 
   jwt.verify(
     token,

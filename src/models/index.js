@@ -25,3 +25,6 @@ Product.hasMany(Purchase)
 
 ProductImg.belongsTo(Product)
 Product.hasMany(ProductImg)
+
+ProductImg.belongsTo(Purchase)
+Purchase.hasMany(ProductImg)

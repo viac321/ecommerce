@@ -4,6 +4,7 @@ const Cart = require('../models/Cart');
 const { where } = require('sequelize');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
+const ProductImg = require('../models/ProductImg');
 
 const getAll = catchError(async(req, res) => {
     const userId = req.user.id
@@ -18,6 +19,8 @@ const getAll = catchError(async(req, res) => {
                     attributes: ["name"]
                 }
             }
+            ,
+            {model: ProductImg}
           ]
         }
     );
