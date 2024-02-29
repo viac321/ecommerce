@@ -82,3 +82,24 @@ test("GET -> 'URL_BASE/:id', should status 200, res.body to be defined and res.b
 
   await product.destroy();
 });
+
+test("PUT -> 'URL_BASE/:id' should return status code 200, res.body to be defined, and res.body.quantity to Be 3", async () => {
+
+  const res = await request(app)
+    .put(`${URL_BASE}/${cartId}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
+    .send({ quantity: 3 })
+
+  expect(res.status).toBe(200)
+  expect(res.body).toBeDefined()
+  expect(res.body.quantity).toBe(3)
+})
+
+test("DELETE -> 'URL_BASE/:id' should return status code 204", async () => {
+  const res = await request(app)
+    .delete(`${URL_BASE}/${cartId}`)
+    .set('Authorization', `Bearer ${TOKEN}`)
+
+  expect(res.status).toBe(204)
+  await product.destroy()
+})
