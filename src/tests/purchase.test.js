@@ -75,7 +75,7 @@ test("GET -> 'URL_BASE', should status 200, res.body to be defined and res.body.
    .get(URL_BASE)
    .set('Authorization', `Bearer ${TOKEN}`)
 
-   console.log(res.body)
+   
 
    expect(res.status).toBe(200)
    expect(res.body).toBeDefined()
