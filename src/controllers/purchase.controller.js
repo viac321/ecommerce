@@ -35,7 +35,6 @@ const create = catchError(async(req, res) => {
         raw: true, //returns json
         attributes: ['quantity', 'userId', 'productId']
     })
-    console.log(cart, userId)
 
     if(!cart) return res.sendStatus(404)
     const result = await Purchase.bulkCreate(cart)
